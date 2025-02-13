@@ -3,6 +3,8 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 import { FaYoutube } from 'react-icons/fa';
 import { FaSearch } from 'react-icons/fa';
 import { AiOutlineClose } from 'react-icons/ai';
+
+
 function Navbar() {
   return (
     <div className='w-full bg-[#0c0c0c]'>

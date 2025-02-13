@@ -8,7 +8,14 @@ function Navbar() {
     <div className='w-full bg-[#0c0c0c]'>
       <div className='flex justify-between w-[95%] h-14 mx-auto'>
         <div className='flex items-center gap-8'>
-          <RxHamburgerMenu className='text-xl ' />
+          <a
+            data-bs-toggle='offcanvas'
+            href='#offcanvasExample'
+            role='button'
+            aria-controls='offcanvasExample'
+          >
+            <RxHamburgerMenu className='text-xl text-white' />
+          </a>
           <div className='flex items-center gap-1'>
             <FaYoutube className='text-3xl text-red-600' />
             <span className='text-xl'>YouTube</span>

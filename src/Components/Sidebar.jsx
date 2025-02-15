@@ -85,7 +85,7 @@ function Sidebar({ filter, setFilter }) {
         {mainLinks.map(({ icon, name, filterTag }) => (
           <li
             onClick={() => toggleFilter(filterTag)}
-            className='pl-6 py-3 hover:bg-neutral-800'
+            className={`pl-6 py-3 hover:bg-neutral-800 ${filter=== filterTag ? 'bg-neutral-800' : ''}`}
             key={name}
           >
             <h1 className='flex items-center gap-5'>
@@ -100,8 +100,7 @@ function Sidebar({ filter, setFilter }) {
         {categoriesLinks.map(({ icon, name, filterTag }) => (
           <li
             onClick={() => toggleFilter(filterTag)}
-            className='pl-6 py-3 hover:bg-neutral-800'
-            key={name}
+            className={`pl-6 py-3 hover:bg-neutral-800 ${filter=== filterTag ? 'bg-neutral-800' : ''}`}             key={name}
           >
             <h1 className='flex items-center gap-5'>
               {icon}

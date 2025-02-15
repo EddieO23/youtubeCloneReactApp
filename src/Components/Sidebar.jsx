@@ -56,9 +56,15 @@ const categoriesLinks = [
   },
 ];
 
-function Sidebar() {
+function Sidebar({ filter, setFilter }) {
+  const toggleFilter = (filterTag) => {
+    setFilter(filterTag);
+  };
   return (
-    <div data-bs-toggle='offcanvas' className='w-full h-full text-white bg-[#0c0c0c] '>
+    <div
+      data-bs-toggle='offcanvas'
+      className='w-full h-full text-white bg-[#0c0c0c] '
+    >
       <div className='flex items-center gap-8 w-[85%] mx-auto h-14'>
         <a
           data-bs-toggle='offcanvas'
@@ -76,25 +82,33 @@ function Sidebar() {
 
       {/* main aka home category */}
       <ul className='border-b-[1px] border-zinc-700'>
-        {mainLinks.map(({ icon, name, filterTag }) => 
-          <li className='pl-6 py-3 hover:bg-neutral-800' key={name}>
+        {mainLinks.map(({ icon, name, filterTag }) => (
+          <li
+            onClick={() => toggleFilter(filterTag)}
+            className='pl-6 py-3 hover:bg-neutral-800'
+            key={name}
+          >
             <h1 className='flex items-center gap-5'>
               {icon}
               <span className='text-sm'>{name}</span>
             </h1>
           </li>
-        )}
+        ))}
       </ul>
       {/* rest of categories */}
       <ul className='border-b-[1px] border-zinc-700'>
-        {categoriesLinks.map(({ icon, name, filterTag }) => 
-          <li className='pl-6 py-3 hover:bg-neutral-800' key={name}>
+        {categoriesLinks.map(({ icon, name, filterTag }) => (
+          <li
+            onClick={() => toggleFilter(filterTag)}
+            className='pl-6 py-3 hover:bg-neutral-800'
+            key={name}
+          >
             <h1 className='flex items-center gap-5'>
               {icon}
               <span className='text-sm'>{name}</span>
             </h1>
           </li>
-        )}
+        ))}
       </ul>
     </div>
   );

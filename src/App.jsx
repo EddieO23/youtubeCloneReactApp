@@ -1,16 +1,20 @@
+import { useState } from 'react';
 import Navbar from './Components/Navbar';
 import Sidebar from './Components/Sidebar';
 import Home from './Pages/Home';
 
 function App() {
+const [filter, setFilter] = useState('home')
+
   return (
     <div className=''>
+      <h1>{filter}</h1>
       <div
         className='offcanvas offcanvas-start'
         id='offcanvasExample'
         aria-labelledby='offcanvasExampleLabel'
       >
-        <Sidebar />
+        <Sidebar filter={filter} setFilter={setFilter} />
       </div>
       <Navbar />
       <Home />

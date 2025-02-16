@@ -1,13 +1,14 @@
 import React from 'react';
-// import { homeVideoCad } from '../utils/Type';
+import { Link } from 'react-router-dom';
 
 function Card({data}) {
   return (
     <div className='flex flex-col gap-3 pb-3'>
       {/* THUMBNAIL */}
       <div className='relative'>
-        {/* <div className='aspect-[16/9] rounded-xl bg-red-300 '></div> */}
+        <Link to={`/watch`}>
         <img className='aspect-[16/9] object-cover rounded-xl bg-red-300 ' src={data.videoThumbnail} alt="" />
+        </Link>
         <span className='absolute bottom-3 right-3 text-sm  bg-[#0c0c0cd0] px-2 py-0.5 rounded'>
           {data.duration}
         </span>
@@ -15,7 +16,6 @@ function Card({data}) {
       
       {/* DETAILS */}
       <div className='flex gap-2'>
-        {/* <div className='bg-red-300 aspect-[1/1] h-12 rounded-full '></div> */}
         <img className='bg-red-300 aspect-[1/1] h-12 rounded-full' src={data.channelInfo.image} alt="" />
         <div className='flex flex-col'>
           <h3 className='text-sm line-clamp-2'>{data.videoTitle}</h3>

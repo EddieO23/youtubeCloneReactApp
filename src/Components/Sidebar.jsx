@@ -10,12 +10,15 @@ import { IoSchool } from 'react-icons/io5';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { FaYoutube } from 'react-icons/fa';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 
 
 function Sidebar({ filter, setFilter, setCategoryId }) {
+const navigate = useNavigate()
+
   const [categoriesData, setCategoriesData] = useState([]);
 
   const fetchAndSetCategories = async () => {
@@ -119,7 +122,7 @@ function Sidebar({ filter, setFilter, setCategoryId }) {
         >
           <RxHamburgerMenu className='text-xl text-white' />
         </a>
-        <div className='flex items-center gap-1'>
+        <div className='flex items-center gap-1' onClick={() => navigate('/')}>
           <FaYoutube className='text-3xl text-red-600' />
           <span className='text-xl'>YouTube</span>
         </div>
@@ -129,7 +132,7 @@ function Sidebar({ filter, setFilter, setCategoryId }) {
       <ul className='border-b-[1px] border-zinc-700'>
         {mainLinks.map(({ icon, name, filterTag, categoryId }) => (
           <li
-            onClick={() => toggleFilter(filterTag, categoryId)}
+            onClick={() => {toggleFilter(filterTag, categoryId); navigate(`/`)}}
             className={`pl-6 py-3 hover:bg-neutral-800 ${
               filter === filterTag ? 'bg-neutral-800' : ''
             }`}

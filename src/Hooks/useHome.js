@@ -1,12 +1,33 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState } from 'react';
+import axios from 'axios';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 export const useHome = () => {
-  const [homeVideos, setHomeVideos] = useState({videos: [], nextPageToken: null});
+  // {
+  //   home: {videos: [], nextPageToken: null},
+  //   music: {videos: [], nextPageToken: null},
+  //   movies: {videos: [], nextPageToken: null},
+  // }
 
-  const fetchHomeVideos = async (filter, categoryId = null, pageToken = null) => {
+  const [homeVideos, setHomeVideos] = useState({
+    home: { videos: [], nextPageToken: null },
+    music: { videos: [], nextPageToken: null },
+    sport: { videos: [], nextPageToken: null },
+    gaming: { videos: [], nextPageToken: null },
+    movies: { videos: [], nextPageToken: null },
+    news: { videos: [], nextPageToken: null },
+    fashion: { videos: [], nextPageToken: null },
+    course: { videos: [], nextPageToken: null },
+  });
+
+const [error, setError] = useState(null)
+
+  const fetchHomeVideos = async (
+    filter,
+    categoryId = null,
+    pageToken = null
+  ) => {
     try {
       const response = await axios.get(
         `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&part=snippet,statistics,contentDetails&chart=mostPopular&${
@@ -14,7 +35,7 @@ export const useHome = () => {
         }&${pageToken != null ? `pageToken=${pageToken}` : ``}&maxResults=20`
       );
 
-      // console.log(response.data);
+      setError(null)
 
       const videoData = response.data.items.map((item) => {
         return {
@@ -39,8 +60,6 @@ export const useHome = () => {
         `https://www.googleapis.com/youtube/v3/channels?key=${API_KEY}&part=snippet&id=${channelIds}`
       );
 
-      // console.log(channelResponse);
-
       const channelData = {};
 
       channelResponse.data.items.forEach((channel) => {
@@ -50,8 +69,6 @@ export const useHome = () => {
         };
       });
 
-      // console.log(channelData);
-
       const videos = videoData.map((video) => ({
         ...video,
         channelInfo: {
@@ -60,10 +77,24 @@ export const useHome = () => {
         },
       }));
 
-      setHomeVideos({ videos, nextPageToken: response.data.nextPageToken });
+      // Update state by merging new videos with existing ones
+      // setHomeVideos((prevState) => ({
+      //   videos: [...prevState.videos, ...videos], // Append new videos
+      //   nextPageToken: response.data.nextPageToken, // Update nextPageToken
+      // }));
+
+      setHomeVideos((prevState) => ({
+        ...prevState,
+        [filter]: {
+          videos: [...prevState[filter].videos, ...videos],
+          nextPageToken: response.data.nextPageToken,
+        },
+      }));
     } catch (error) {
       console.error(`Error fetching: ${filter} videos"`, error);
+      setError(`Error fetching the ${filter} videos, fetch again later.`)
     }
   };
-  return { homeVideos, fetchHomeVideos };
+
+  return { homeVideos, error, fetchHomeVideos };
 };

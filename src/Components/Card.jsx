@@ -6,7 +6,7 @@ function Card({data}) {
     <div className='flex flex-col gap-3 pb-3'>
       {/* THUMBNAIL */}
       <div className='relative'>
-        <Link to={`/watch`}>
+        <Link to={`/watch/${data.videoId}`}>
         <img className='aspect-[16/9] object-cover rounded-xl bg-red-300 ' src={data.videoThumbnail} alt="" />
         </Link>
         <span className='absolute bottom-3 right-3 text-sm  bg-[#0c0c0cd0] px-2 py-0.5 rounded'>

@@ -5,7 +5,7 @@ import { FaShareAlt } from 'react-icons/fa';
 function VideoDetails() {
   const [showDescription, setShowDescription] = useState(false)
   return (
-    <div className='flex flex-col gap-2 mt-2 mx-1 w-full mb-12'>
+    <div className='flex flex-col gap-2 mt-2 mx-1'>
       {/* videoTitle */}
       <h1 className='text-2xl font-semibold'>VIDEOTITLE</h1>
       {/* channelThumbnail, channelName, likes, shareButton */}

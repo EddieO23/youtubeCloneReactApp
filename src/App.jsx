@@ -26,7 +26,7 @@ function App() {
 
       <Routes>
         <Route path='/'element={<Home filter={filter} categoryId={categoryId} />}/>
-        <Route path='/watch'element={<Watch/>}/>
+        <Route path='/watch/:videoId'element={<Watch/>}/>
       </Routes>
     </BrowserRouter>
   );

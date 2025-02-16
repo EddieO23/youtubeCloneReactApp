@@ -15,7 +15,7 @@ const homeVideoCard = {
 };
 
 // Alternatively, you can create another example without the image
-const homeVideoCadWithoutImage = {
+const homeVideoCardWithoutImage = {
   videoId: "def456",
   videoThumbnail: "https://example.com/thumbnail2.jpg",
   videoDuration: "5:30",
@@ -29,4 +29,4 @@ const homeVideoCadWithoutImage = {
   }
 };
 
-export { homeVideoCad, homeVideoCadWithoutImage }; // Export the objects for use in other components
+export { homeVideoCard, homeVideoCardWithoutImage }; // Export the objects for use in other components

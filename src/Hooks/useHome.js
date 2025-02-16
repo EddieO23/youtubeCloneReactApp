@@ -4,16 +4,17 @@ import axios from 'axios';
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 export const useHome = () => {
-  const [homeVideos, setHomeVideos] = useState([]);
+  const [homeVideos, setHomeVideos] = useState({videos: [], nextPageToken: null});
 
-  const fetchHomeVideos = async (filter, categoryId) => {
+  const fetchHomeVideos = async (filter, categoryId = null, pageToken = null) => {
     try {
       const response = await axios.get(
         `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&part=snippet,statistics,contentDetails&chart=mostPopular&${
           categoryId != null ? `videoCategoryId=${categoryId}` : ``
-        }&maxResults=20`
+        }&${pageToken != null ? `pageToken=${pageToken}` : ``}&maxResults=20`
       );
-      console.log(response.data);
+
+      // console.log(response.data);
 
       const videoData = response.data.items.map((item) => {
         return {
@@ -59,7 +60,7 @@ export const useHome = () => {
         },
       }));
 
-      setHomeVideos(videos);
+      setHomeVideos({ videos, nextPageToken: response.data.nextPageToken });
     } catch (error) {
       console.error(`Error fetching: ${filter} videos"`, error);
     }

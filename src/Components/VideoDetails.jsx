@@ -2,12 +2,12 @@ import {React, useState} from 'react';
 import { AiFillLike } from 'react-icons/ai';
 import { FaShareAlt } from 'react-icons/fa';
 
-function VideoDetails() {
+function VideoDetails({details}) {
   const [showDescription, setShowDescription] = useState(false)
   return (
     <div className='flex flex-col gap-2 mt-2 mx-1'>
       {/* videoTitle */}
-      <h1 className='text-2xl font-semibold'>VIDEOTITLE</h1>
+      <h1 className='text-2xl font-semibold'>{details?.videoTitle}</h1>
       {/* channelThumbnail, channelName, likes, shareButton */}
 
       <div className='flex justify-between'>
@@ -15,7 +15,7 @@ function VideoDetails() {
         <div className='flex gap-3 items-center'>
           <div className='w-12 aspect-[1/1] rounded-full bg-red-200'></div>
           <div className='flex flex-col text-lg  '>
-            <h2 className='font-semibold'>CHANNEL NAME</h2>
+            <h2 className='font-semibold'>Channel Name</h2>
             <h2>SUB COUNT</h2>
           </div>
         </div>

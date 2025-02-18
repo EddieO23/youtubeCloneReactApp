@@ -5,7 +5,6 @@ import { fetchVideosWithChannels } from '../utils/videoDetailsHelper';
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 export const useHome = () => {
-
   const [homeVideos, setHomeVideos] = useState({
     home: { videos: [], nextPageToken: null },
     music: { videos: [], nextPageToken: null },
@@ -17,7 +16,7 @@ export const useHome = () => {
     course: { videos: [], nextPageToken: null },
   });
 
-const [error, setError] = useState(null)
+  const [error, setError] = useState(null);
 
   const fetchHomeVideos = async (
     filter,
@@ -30,13 +29,10 @@ const [error, setError] = useState(null)
           categoryId != null ? `videoCategoryId=${categoryId}` : ``
         }&${pageToken != null ? `pageToken=${pageToken}` : ``}&maxResults=20`
       );
-// console.log(response.data)
-      setError(null)
+      // console.log(response.data);
+      setError(null);
 
-      const videos = await fetchVideosWithChannels(response.data.items)
-
-      
-
+      const videos = await fetchVideosWithChannels(response.data.items);
 
       setHomeVideos((prevState) => ({
         ...prevState,
@@ -47,7 +43,7 @@ const [error, setError] = useState(null)
       }));
     } catch (error) {
       console.error(`Error fetching: ${filter} videos"`, error);
-      setError(`Error fetching the ${filter} videos, fetch again later.`)
+      setError(`Error fetching the ${filter} videos, fetch again later.`);
     }
   };
 

@@ -15,7 +15,7 @@ export const fetchVideosWithChannels = async (items) => {
       videoAge: item.snippet.publishedAt,
       channelInfo: {
         id: item.snippet.channelId,
-        // image?: item.snippet.channelId,
+        image: item.snippet.channelId,
         name: item.snippet.channelTitle,
         // subCount:
       },
@@ -42,8 +42,8 @@ export const fetchVideosWithChannels = async (items) => {
     ...video,
     channelInfo: {
       ...video.channelInfo,
-      image: channelData[video.channelInfo.id].image,
-      subCount: channelData[video.channelInfo.id].subCount,
+      image: channelData[video.channelInfo.id]?.image || null,
+      subCount: channelData[video.channelInfo.id]?.subCount || null,
     },
   }));
   console.log(`Check`, videos);

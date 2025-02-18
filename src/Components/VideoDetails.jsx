@@ -4,6 +4,7 @@ import { FaShareAlt } from 'react-icons/fa';
 
 function VideoDetails({details}) {
   const [showDescription, setShowDescription] = useState(false)
+
   return (
     <div className='flex flex-col gap-2 mt-2 mx-1'>
       {/* videoTitle */}
@@ -13,10 +14,13 @@ function VideoDetails({details}) {
       <div className='flex justify-between'>
         {/* CHANNEL INFO */}
         <div className='flex gap-3 items-center'>
-          <div className='w-12 aspect-[1/1] rounded-full bg-red-200'></div>
+         {/* <div className="w-12 aspect-[1/1] rounded-full bg-red-400"></div> */}
+          <img src={details?.channelInfo.image} className='w-12 aspect-[1/1] rounded-full' alt="" />
           <div className='flex flex-col text-lg  '>
-            <h2 className='font-semibold'>Channel Name</h2>
-            <h2>SUB COUNT</h2>
+            {/* <h2 className='font-semibold'>{details?.channelInfo.name}</h2> */}
+            <h2 className='font-semibold'>{details?.channelInfo.name}</h2>
+            <h2>{details?.channelInfo.subCount}</h2>
+            {/* <h2>SUB COUNT</h2> */}
           </div>
         </div>
         {/* btn */}
@@ -24,6 +28,7 @@ function VideoDetails({details}) {
           <div className='flex items-center gap-2 bg-neutral-800 px-3 rounded-full'>
             <AiFillLike />
             <span className='h-6 border'></span>
+            {/* <span>{details?.videoLikes}</span> */}
             <span>VIDEO LIKES</span>
           </div>
 
@@ -35,23 +40,9 @@ function VideoDetails({details}) {
       </div>
       {/* DESCRIPTION */}
       <div className='text-lg bg-neutral-700 px-3 py-2 rounded-xl'>
-        <p className={`${showDescription ? `` : `line-clamp-3`}`}>
-          Contrary to popular belief, Lorem Ipsum is not simply random text. lot
-          has roots in a piece of classical Latin literature from 45 BC, making
-          it over 2000 years old. Richard McClintock, a Latin professor at
-          Hampden-Sydney College in Virginia, looked up one of the more obscure
-          Latin words, consectetur, from a Lorem Ipsum passage, and going
-          through the cites of the word in classical literature, discovered the
-          undoubtable source. Lorem Ipsum comes from sections 1.10.32 and
-          1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and
-          Evil) by Cicero, written in 45 BC. This book is a treatise on the
-          theory of ethics, very popular during the Renaissance. The first line
-          of Lorem Ipsum, "Lorem ipsum dolor sit amet...". comes from a line in
-          section 1.10.32. The standard chunk of Lorem Ipsum used since the
-          1500s is reproduced below for those interested. Sections 1.10.32 and
-          1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also
-          reproduced in their exact original form, accompanied by English
-          versions from the 1914 translation by H. Rackham.
+        <p className={`whitespace-pre-line ${showDescription ? `` : `line-clamp-3`}`}>
+          {/* {details?.videoDescription} */}
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut tempore deleniti voluptatum eaque qui maxime laborum voluptas adipisci ea illo voluptate inventore dolorum ipsa quaerat, ipsam voluptatibus? Quidem sit dolores non mollitia repellendus, laboriosam molestias iure repellat quasi omnis eius veniam maiores aliquam cum animi facere aliquid soluta placeat nobis!
         </p>
         {!showDescription ? 
         <button onClick={() => setShowDescription(true)}>...more</button>

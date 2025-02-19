@@ -92,7 +92,7 @@ function VideoDetails({ details }) {
               {details?.channelInfo?.name || 'Loading...'}
             </h2>
 
-            <h2>{details?.channelInfo?.subCount}</h2>
+            <h2>{details?.channelInfo.subCount}</h2>
           </div>
         </div>
         <div className='flex gap-3 text-lg cursor-pointer'>

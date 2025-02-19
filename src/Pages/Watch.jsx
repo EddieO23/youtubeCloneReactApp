@@ -4,6 +4,7 @@ import VideoDetails from '../Components/VideoDetails';
 import MiniCard from '../Components/MiniCard';
 import axios from 'axios';
 import { fetchVideosWithChannels } from '../utils/videoDetailsHelper';
+import Comments from '../Components/Comments';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -83,8 +84,8 @@ const vidResponse = await axios.get(`https://www.googleapis.com/youtube/v3/video
             title='Youtube video player'
             allow='autoplay;' // Remove picture-inpicture if not needed
           ></iframe>
-
           <VideoDetails details={details} />
+<Comments/>
         </div>
         <div className='col-4 flex flex-col gap-3'>
           {activities?.map((item, idx) => (

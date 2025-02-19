@@ -8,31 +8,63 @@ import { fetchVideosWithChannels } from '../utils/videoDetailsHelper';
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 function Watch() {
-  const { videoId } = useParams();
+  const { videoId, channelId } = useParams();
   console.log(`VIDEO ID, ${videoId}`);
 
   const [details, setDetails] = useState({});
 
+  // const fetchDetails = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&part=snippet,contentDetails,statistics&id=${videoId}`
+  //     );
+  //     console.log(`res`, response.data.items);
+  //     const items = response.data.items;
+
+  //     const videoDetails = await fetchVideosWithChannels(items);
+
+  //     setDetails(videoDetails[0]);
+  //   } catch (error) {}
+  // };
+
   const fetchDetails = async () => {
     try {
-      const response = await axios.get(
-        `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&part=snippet,contentDetails,statistics&id=${videoId}`
-      );
-      console.log(`res`, response.data.items);
-      const items = response.data.items;
+        const response = await axios.get(
+            `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&part=snippet,contentDetails,statistics&id=${videoId}`
+        );
+        console.log('Response:', response.data); // Log response data
+        const items = response.data.items;
 
-      const videoDetails = await fetchVideosWithChannels(items);
+        if (items.length > 0) {
+            const videoDetails = await fetchVideosWithChannels(items);
+            setDetails(videoDetails[0]);
+        } else {
+            console.error('No video details found for the given videoId.');
+            setDetails({}); // Set to an empty object if no details are found
+        }
+    } catch (error) {
+        console.error('Error fetching video details:', error); // Log error
+        setDetails({}); // Set to an empty object on error
+    }
+};
 
-      setDetails(videoDetails[0]);
-    } catch (error) {}
-  };
 
+ const fetchActivities = async () => {
+  try {
+    const response = await axios.get(`https://www.googleapis.com/youtube/v3/activities?key=${API_KEY}&part=snippet,contentDetails&channelId=${channelId}&maxResults=20`)
+    console.log('activities', response)
+  } catch (error) {
+    
+  }
+ }
+  
   useEffect(() => {
-    console.log(`details`, details);
+    // console.log(`details`, details);
   }, [details]);
 
   useEffect(() => {
     fetchDetails();
+    fetchActivities()
   }, []);
 
   return (

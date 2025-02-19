@@ -17,7 +17,7 @@ export const fetchVideosWithChannels = async (items) => {
         id: item.snippet.channelId,
         image: item.snippet.channelId,
         name: item.snippet.channelTitle,
-        // subCount:
+        subCount: item.statistics.subCount
       },
     };
   });

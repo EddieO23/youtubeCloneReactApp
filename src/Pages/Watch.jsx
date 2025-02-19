@@ -9,7 +9,7 @@ const API_KEY = import.meta.env.VITE_API_KEY;
 
 function Watch() {
   const { videoId, channelId } = useParams();
-  console.log(`VIDEO ID, ${videoId}`);
+  const [activities, setActivities] = useState()
 
   const [details, setDetails] = useState({});
 
@@ -18,7 +18,6 @@ function Watch() {
         const response = await axios.get(
             `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&part=snippet,contentDetails,statistics&id=${videoId}`
         );
-        console.log('Response:', response.data); // Log response data
         const items = response.data.items;
 
         if (items.length > 0) {
@@ -38,9 +37,9 @@ function Watch() {
  const fetchActivities = async () => {
   try {
     const response = await axios.get(`https://www.googleapis.com/youtube/v3/activities?key=${API_KEY}&part=snippet,contentDetails&channelId=${channelId}&maxResults=20`)
-    console.log('activities', response)
 
     const items = response.data.items
+
     const videoIds = []
 
       items.forEach((item) => {
@@ -52,7 +51,12 @@ function Watch() {
               videoIds.push(item.contentDetails.playlistItem.resourceId.videoId);
           }
       });
-      console.log("ids", videoIds)
+
+const vidResponse = await axios.get(`https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&part=snippet,contentDetails,statistics&id=${videoIds}&maxResults=20`)
+// console.log("videosResponse", vidResponse)
+
+      const videosArray = await fetchVideosWithChannels(vidResponse.data.items)
+      setActivities(videosArray)
 
   } catch (error) {
     
@@ -83,8 +87,8 @@ function Watch() {
           <VideoDetails details={details} />
         </div>
         <div className='col-4 flex flex-col gap-3'>
-          {[...Array(12)].map((item, idx) => (
-            <MiniCard key={idx}/>
+          {activities?.map((item, idx) => (
+            <MiniCard item={item} key={idx}/>
           ))}
         </div>
       </div>

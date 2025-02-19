@@ -27,7 +27,6 @@ export const fetchVideosWithChannels = async (items) => {
   const channelResponse = await axios.get(
     `https://www.googleapis.com/youtube/v3/channels?key=${API_KEY}&part=snippet,statistics&id=${channelIds}`
   );
-  console.log(channelResponse);
 
   const channelData = {};
 
@@ -46,7 +45,6 @@ export const fetchVideosWithChannels = async (items) => {
       subCount: channelData[video.channelInfo.id]?.subCount || null,
     },
   }));
-  console.log(`Check`, videos);
   
   return videos;
   

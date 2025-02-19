@@ -41,16 +41,17 @@ function Watch() {
         <div className='col-8'>
           {/* <div className='w-full aspect-[16/9] bg-red-400'></div> preview of video here */}
           <iframe
-          className='w-full aspect-[16/9]'
+            className='w-full aspect-[16/9]'
             src={`https://www.youtube.com/embed/${details?.videoId}?autoplay=1`}
             title='Youtube video player'
-            allow='autoplay; picture-inpicture;'
+            allow='autoplay;' // Remove picture-inpicture if not needed
           ></iframe>
+
           <VideoDetails details={details} />
         </div>
         <div className='col-4 flex flex-col gap-3'>
           {[...Array(12)].map((item, idx) => (
-            <MiniCard />
+            <MiniCard key={idx}/>
           ))}
         </div>
       </div>

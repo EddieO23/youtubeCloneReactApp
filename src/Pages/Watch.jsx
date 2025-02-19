@@ -13,20 +13,6 @@ function Watch() {
 
   const [details, setDetails] = useState({});
 
-  // const fetchDetails = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&part=snippet,contentDetails,statistics&id=${videoId}`
-  //     );
-  //     console.log(`res`, response.data.items);
-  //     const items = response.data.items;
-
-  //     const videoDetails = await fetchVideosWithChannels(items);
-
-  //     setDetails(videoDetails[0]);
-  //   } catch (error) {}
-  // };
-
   const fetchDetails = async () => {
     try {
         const response = await axios.get(
@@ -53,6 +39,21 @@ function Watch() {
   try {
     const response = await axios.get(`https://www.googleapis.com/youtube/v3/activities?key=${API_KEY}&part=snippet,contentDetails&channelId=${channelId}&maxResults=20`)
     console.log('activities', response)
+
+    const items = response.data.items
+    const videoIds = []
+
+      items.forEach((item) => {
+          if (item.contentDetails.upload) {
+              videoIds.push(item.contentDetails.upload.videoId);
+          }
+          // Uncomment if you want to include playlist items
+          else if (item.contentDetails.playlistItem) {
+              videoIds.push(item.contentDetails.playlistItem.resourceId.videoId);
+          }
+      });
+      console.log("ids", videoIds)
+
   } catch (error) {
     
   }

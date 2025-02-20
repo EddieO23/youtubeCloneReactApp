@@ -88,8 +88,8 @@ function Watch() {
           <Comments videoId={details?.videoId} />
         </div>
         <div className='col-4 flex flex-col gap-3'>
-          {activities?.map((item, idx) => (
-            <MiniCard item={item} key={idx} />
+          {activities?.map((item, indx) => (
+            <MiniCard item={item} key={indx} />
           ))}
         </div>
       </div>

@@ -20,7 +20,7 @@ function Comments({ videoId }) {
             : ``
         }`
       );
-      console.log(commentsResponse.data); 
+      // console.log(commentsResponse.data); 
 
       const items = commentsResponse.data.items;
 
@@ -46,15 +46,17 @@ function Comments({ videoId }) {
   };
 
   useEffect(() => {
-    fetchComments();
+    if(videoId) {
+      fetchComments();
+    }
     // console.log(commentList);
   }, [videoId]);
 
   return (
     <div className='mt-3 flex flex-col gap-2 '>
       <h1 className='text-2xl font-semibold px-4'>COMMENTS</h1>
-      {commentList?.comments?.map((comment) => (
-        <CommentCard comment={comment} />
+      {commentList?.comments?.map((comment, indx) => (
+        <CommentCard key={indx} comment={comment} />
       ))}
       <button
         className='text-gray-400 hover:underline'

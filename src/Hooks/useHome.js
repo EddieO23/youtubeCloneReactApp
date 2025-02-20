@@ -29,10 +29,10 @@ export const useHome = () => {
           categoryId != null ? `videoCategoryId=${categoryId}` : ``
         }&${pageToken != null ? `pageToken=${pageToken}` : ``}&maxResults=20`
       );
-      // console.log(response.data);
       setError(null);
-
+      
       const videos = await fetchVideosWithChannels(response.data.items);
+      console.log(response.data);
 
       setHomeVideos((prevState) => ({
         ...prevState,

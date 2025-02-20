@@ -4,6 +4,7 @@ import Navbar from './Components/Navbar';
 import Sidebar from './Components/Sidebar';
 import Home from './Pages/Home';
 import Watch from './Pages/Watch';
+import Channel from './Pages/Channel';
 
 function App() {
   const [filter, setFilter] = useState('home');
@@ -27,6 +28,7 @@ function App() {
       <Routes>
         <Route path='/'element={<Home filter={filter} categoryId={categoryId} />}/>
         <Route path='/watch/:videoId/:channelId'element={<Watch/>}/>
+        <Route path='/channel/:channelId' element={<Channel/>}/>
       </Routes>
     </BrowserRouter>
   );

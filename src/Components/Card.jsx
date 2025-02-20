@@ -1,22 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Card({data}) {
+function Card({ data }) {
   return (
     <div className='flex flex-col gap-3 pb-3'>
       {/* THUMBNAIL */}
       <div className='relative'>
         <Link to={`/watch/${data.videoId}/${data.channelInfo.id}`}>
-        <img className='aspect-[16/9] w-full object-cover rounded-xl bg-red-300 ' src={data.videoThumbnail} alt="" />
+          <img
+            className='aspect-[16/9] w-full object-cover rounded-xl bg-red-300 '
+            src={data.videoThumbnail}
+            alt=''
+          />
         </Link>
         <span className='absolute bottom-3 right-3 text-sm  bg-[#0c0c0cd0] px-2 py-0.5 rounded'>
           {data.duration}
         </span>
       </div>
-      
+
       {/* DETAILS */}
       <div className='flex gap-2'>
-        <img className='bg-red-300 aspect-[1/1] h-12 rounded-full' src={data.channelInfo.image} alt="" />
+        <Link to={`/channel/${data.channelInfo.id}`}>
+          <img
+            className='bg-red-300 aspect-[1/1] h-12 rounded-full'
+            src={data.channelInfo.image}
+            alt=''
+          />
+        </Link>
         <div className='flex flex-col'>
           <h3 className='text-sm line-clamp-2'>{data.videoTitle}</h3>
           <div className='text-md'>

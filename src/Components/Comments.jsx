@@ -11,7 +11,7 @@ function Comments({ videoId }) {
   const fetchComments = async () => {
     try {
       const commentsResponse = await axios.get(
-        `https://www.googleapis.com/youtube/v3/commentThreads?key=${API_KEY}&part=snippet,replies&videoId=${videoId}&${commentList.nextPageToken ? `&pageToken=${commentList.nextPageToken}`:``}`
+        `https://www.googleapis.com/youtube/v3/commentThreads?key=${API_KEY}&part=snippet,replies&videoId=${videoId}&maxResults=15&${commentList.nextPageToken ? `&pageToken=${commentList.nextPageToken}`:``}`
       );
       console.log(commentsResponse.data);
 
@@ -26,6 +26,7 @@ function Comments({ videoId }) {
         authorName: comment.snippet.topLevelComment.snippet.authorDisplayName,
         commentText: comment.snippet.topLevelComment.snippet.textOriginal,
         commentLikes: comment.snippet.topLevelComment.snippet.likeCount,
+        commentRepliesCount: comment.snippet.totalReplyCount
       }));
 console.log(commentsData)
       setCommentList(prev=> ({

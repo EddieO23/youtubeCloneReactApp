@@ -2,36 +2,15 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
-const API_KEY = import.meta.env.VITE_API_KEY;
+import { useChannel } from '../Hooks/useChannel';
 
 function Channel() {
   const { channelId } = useParams();
-  const [channelInfo, setChannelInfo] = useState(null);
-
-  const fetchChannelInfo = async () => {
-    const channelInfoResponse = await axios.get(
-      `https://www.googleapis.com/youtube/v3/channels?key=${API_KEY}&part=snippet,contentDetails,statistics&id=${channelId}`
-    );
-    console.log('channelResponse', channelInfoResponse);
-
-    const items = channelInfoResponse.data.items;
-
-    const channelInfoData = items.map((item) => ({
-      id: item.id,
-      thumbnail: item.snippet.thumbnails.high.url,
-      title: item.snippet.title,
-      customUrl: item.snippet.customUrl,
-      description: item.snippet.description,
-      subCount: item.statistics.subscriberCount,
-      videoCount: item.statistics.videoCount,
-    }));
-    // console.log('channelInfoData response: ', channelInfoData);
-    setChannelInfo(channelInfoData[0]);
-  };
+  const {channelInfo, fetchChannelInfo} = useChannel()
+  
 
   useEffect(() => {
-    fetchChannelInfo();
+    fetchChannelInfo(channelId);
   }, []);
 
   return (

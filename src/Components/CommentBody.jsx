@@ -3,7 +3,7 @@ import { BiLike } from "react-icons/bi";
 
 function CommentBody() {
   return (
-    <div className='flex gap-3'>
+    <div className='flex gap-3 '>
       <div className='bg-red-300 w-10 h-fit aspect-[1/1] rounded-full'></div>
       <div className=''>
         <h2 className='text-md'>CHANNEL NAME</h2>

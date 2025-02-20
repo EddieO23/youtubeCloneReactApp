@@ -10,67 +10,67 @@ const API_KEY = import.meta.env.VITE_API_KEY;
 
 function Watch() {
   const { videoId, channelId } = useParams();
-  const [activities, setActivities] = useState()
+  const [activities, setActivities] = useState();
 
   const [details, setDetails] = useState({});
 
   const fetchDetails = async () => {
     try {
-        const response = await axios.get(
-            `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&part=snippet,contentDetails,statistics&id=${videoId}`
-        );
-        const items = response.data.items;
+      const response = await axios.get(
+        `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&part=snippet,contentDetails,statistics&id=${videoId}`
+      );
+      const items = response.data.items;
 
-        if (items.length > 0) {
-            const videoDetails = await fetchVideosWithChannels(items);
-            setDetails(videoDetails[0]);
-        } else {
-            console.error('No video details found for the given videoId.');
-            setDetails({}); // Set to an empty object if no details are found
-        }
+      if (items.length > 0) {
+        const videoDetails = await fetchVideosWithChannels(items);
+        setDetails(videoDetails[0]);
+      } else {
+        console.error('No video details found for the given videoId.');
+        setDetails({}); // Set to an empty object if no details are found
+      }
     } catch (error) {
-        console.error('Error fetching video details:', error); // Log error
-        setDetails({}); // Set to an empty object on error
+      console.error('Error fetching video details:', error); // Log error
+      setDetails({}); // Set to an empty object on error
     }
-};
+  };
 
+  const fetchActivities = async () => {
+    try {
+      const response = await axios.get(
+        `https://www.googleapis.com/youtube/v3/activities?key=${API_KEY}&part=snippet,contentDetails&channelId=${channelId}&maxResults=20`
+      );
 
- const fetchActivities = async () => {
-  try {
-    const response = await axios.get(`https://www.googleapis.com/youtube/v3/activities?key=${API_KEY}&part=snippet,contentDetails&channelId=${channelId}&maxResults=20`)
+      const items = response.data.items;
 
-    const items = response.data.items
-
-    const videoIds = []
+      const videoIds = [];
 
       items.forEach((item) => {
-          if (item.contentDetails.upload) {
-              videoIds.push(item.contentDetails.upload.videoId);
-          }
-          // Uncomment if you want to include playlist items
-          else if (item.contentDetails.playlistItem) {
-              videoIds.push(item.contentDetails.playlistItem.resourceId.videoId);
-          }
+        if (item.contentDetails.upload) {
+          videoIds.push(item.contentDetails.upload.videoId);
+        }
+        // Uncomment if you want to include playlist items
+        else if (item.contentDetails.playlistItem) {
+          videoIds.push(item.contentDetails.playlistItem.resourceId.videoId);
+        }
       });
 
-const vidResponse = await axios.get(`https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&part=snippet,contentDetails,statistics&id=${videoIds}&maxResults=20`)
-// console.log("videosResponse", vidResponse)
+      const vidResponse = await axios.get(
+        `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&part=snippet,contentDetails,statistics&id=${videoIds}&maxResults=20`
+      );
+      // console.log("videosResponse", vidResponse)
 
-      const videosArray = await fetchVideosWithChannels(vidResponse.data.items)
-      setActivities(videosArray)
+      const videosArray = await fetchVideosWithChannels(vidResponse.data.items);
+      setActivities(videosArray);
+    } catch (error) {}
+  };
 
-  } catch (error) {
-    
-  }
- }
-  
   useEffect(() => {
     // console.log(`details`, details);
   }, [details]);
 
   useEffect(() => {
     fetchDetails();
-    fetchActivities()
+    fetchActivities();
   }, []);
 
   return (
@@ -85,11 +85,11 @@ const vidResponse = await axios.get(`https://www.googleapis.com/youtube/v3/video
             allow='autoplay;' // Remove picture-inpicture if not needed
           ></iframe>
           <VideoDetails details={details} />
-<Comments/>
+          <Comments videoId={details?.videoId} />
         </div>
         <div className='col-4 flex flex-col gap-3'>
           {activities?.map((item, idx) => (
-            <MiniCard item={item} key={idx}/>
+            <MiniCard item={item} key={idx} />
           ))}
         </div>
       </div>

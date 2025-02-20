@@ -82,7 +82,7 @@ function Watch() {
             className='w-full aspect-[16/9]'
             src={`https://www.youtube.com/embed/${details?.videoId}?autoplay=1`}
             title='Youtube video player'
-            allow='autoplay;' // Remove picture-inpicture if not needed
+            allow='autoplay; fullscreen' // Remove picture-inpicture if not needed
           ></iframe>
           <VideoDetails details={details} />
           <Comments videoId={details?.videoId} />

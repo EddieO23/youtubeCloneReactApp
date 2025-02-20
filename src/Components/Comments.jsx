@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import CommentBody from './CommentBody';
+// import CommentBody from './CommentBody';
 import axios from 'axios';
+import CommentCard from './CommentCard';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -45,8 +46,8 @@ console.log(commentsData)
   return (
     <div className='mt-3 flex flex-col gap-2 '>
       <h1 className='text-2xl font-semibold px-4'>COMMENTS</h1>
-      {commentList?.comments?.map((item) => (
-        <CommentBody item={item} />
+      {commentList?.comments?.map((comment) => (
+        <CommentCard comment={comment}/>
       ))}
 <button className='text-gray-400 hover:underline'
 onClick={()=> fetchComments()}
@@ -55,5 +56,5 @@ onClick={()=> fetchComments()}
     </div>
   );
 }
-
+ 
 export default Comments;

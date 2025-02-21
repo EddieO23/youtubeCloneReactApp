@@ -13,9 +13,7 @@ function CommentCard({ comment }) {
     try {
       if (comment.commentRepliesCount) {
         const repliesResponse = await getCommentReplies(comment.commentId)
-        console.log(repliesResponse.data);
-
-
+        // console.log(repliesResponse.data);
 
         const repliesData = repliesResponse.map((item) => ({
           commentId: item.id,

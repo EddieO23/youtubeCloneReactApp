@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getChannelInfo } from './api';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -24,13 +25,12 @@ export const fetchVideosWithChannels = async (items) => {
 
   const channelIds = videoData.map((video) => video.channelInfo.id).join(',');
 
-  const channelResponse = await axios.get(
-    `https://www.googleapis.com/youtube/v3/channels?key=${API_KEY}&part=snippet,statistics&id=${channelIds}`
-  );
+  const channelResponse = await getChannelInfo(channelIds)
+  
 
   const channelData = {};
 
-  channelResponse.data.items.forEach((channel) => {
+  channelResponse.forEach((channel) => {
     channelData[channel.id] = {
       image: channel.snippet.thumbnails.default.url,
       subCount: channel.statistics.subscriberCount,

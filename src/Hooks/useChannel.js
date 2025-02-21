@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { getChannelInfo } from '../utils/api';
 
 
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -8,24 +9,20 @@ export const useChannel = () => {
   const [channelInfo, setChannelInfo] = useState(null);
 
   const fetchChannelInfo = async (channelId) => {
-    const channelInfoResponse = await axios.get(
-      `https://www.googleapis.com/youtube/v3/channels?key=${API_KEY}&part=snippet,contentDetails,statistics&id=${channelId}`
-    );
-    console.log('channelResponse', channelInfoResponse);
+    
+    const channelInfoResponse = await getChannelInfo(channelId)
 
-    const items = channelInfoResponse.data.items;
-
-    const channelInfoData = items.map((item) => ({
-      id: item.id,
-      thumbnail: item.snippet.thumbnails.high.url,
-      title: item.snippet.title,
-      customUrl: item.snippet.customUrl,
-      description: item.snippet.description,
-      subCount: item.statistics.subscriberCount,
-      videoCount: item.statistics.videoCount,
-    }));
+    const channelInfoData = {
+      id: channelInfoResponse.id,
+      thumbnail: channelInfoResponse.snippet.thumbnails.high.url,
+      title: channelInfoResponse.snippet.title,
+      customUrl: channelInfoResponse.snippet.customUrl,
+      description: channelInfoResponse.snippet.description,
+      subCount: channelInfoResponse.statistics.subscriberCount,
+      videoCount: channelInfoResponse.statistics.videoCount,
+    };
     // console.log('channelInfoData response: ', channelInfoData);
-    setChannelInfo(channelInfoData[0]);
+    setChannelInfo(channelInfoData);
   };
 
   return{channelInfo, fetchChannelInfo}

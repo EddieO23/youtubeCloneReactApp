@@ -9,6 +9,7 @@ function Channel() {
   const { channelId } = useParams();
   const { channelInfo, fetchChannelInfo } = useChannel();
   const [showDescription, setShowDescription] = useState(false);
+  const [category, setCategory] = useState("videos");
 
   useEffect(() => {
     fetchChannelInfo(channelId);
@@ -17,14 +18,18 @@ function Channel() {
   return (
     <div className='relative'>
       {showDescription && channelInfo?.description && (
-        <div className='absolute flex flex-col gap-2 items-end bg-neutral-800 rounded-xl w-[600px] p-8 left-1/2 top-1/2 transform -translate-x-1/2'>
-          <AiOutlineClose
-            onClick={() => setShowDescription(false)}
-            className=' text-2xl text-neutral-200'
-          />
-          <p className='text-lg whitespace-pre-line'>
-            {channelInfo?.description}
-          </p>
+        <div className='absolute overflow-hidden bg-neutral-800 rounded-xl left-1/2 top-1/2 transform -translate-x-1/2'>
+          <div className=' flex flex-col gap-2 items-end  w-[600px] max-h-[500px] overflow-y-auto p-8 overflow-y-auto'>
+            <div className="">
+            <AiOutlineClose
+              onClick={() => setShowDescription(false)}
+              className=' text-2xl text-neutral-200'
+            />
+            </div>
+            <p className='text-lg whitespace-pre-line'>
+              {channelInfo?.description}
+            </p>
+          </div>
         </div>
       )}
 
@@ -69,6 +74,14 @@ function Channel() {
             )}
           </div>
         </div>
+
+<div className="my-3 ">
+  <button onClick={() => setCategory("videos")} className={`w-44 text-xl py-2 font-semibold ${category == "videos" ? "border-b" : ""}`}>VIDEOS</button>
+  <button onClick={() => setCategory("playlists")} className={`w-44 text-xl py-2 font-semibold ${category == "playlists" ? "border-b" : ""}`}>PLAYLISTS</button>
+  <hr className='h-1'/>
+  {category}
+</div>
+
       </div>
     </div>
   );

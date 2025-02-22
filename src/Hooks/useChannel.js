@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { getChannelInfo } from '../utils/api';
-
+import { getActivities, getChannelInfo } from '../utils/api';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -9,7 +8,7 @@ export const useChannel = () => {
   const [channelInfo, setChannelInfo] = useState(null);
 
   const fetchChannelInfo = async (channelId) => {
-    const channelInfoResponse = await getChannelInfo(channelId)
+    const channelInfoResponse = await getChannelInfo(channelId);
 
     const channelInfoData = {
       id: channelInfoResponse[0].id,
@@ -24,5 +23,10 @@ export const useChannel = () => {
     setChannelInfo(channelInfoData);
   };
 
-  return{channelInfo, fetchChannelInfo}
+  const fetchChannelData = async (channelId) => {
+    const channelVideosResponse = await getActivities(channelId)
+    console.log("channelVideosResponse", channelVideosResponse)
+  };
+
+  return { channelInfo, fetchChannelInfo, fetchChannelData};
 };

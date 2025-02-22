@@ -8,12 +8,13 @@ import ChannelVideoList from '../Components/ChannelVideoList';
 
 function Channel() {
   const { channelId } = useParams();
-  const { channelInfo, fetchChannelInfo } = useChannel();
+  const { channelInfo, fetchChannelInfo, fetchChannelData } = useChannel();
   const [showDescription, setShowDescription] = useState(false);
-  const [category, setCategory] = useState("videos");
+  const [category, setCategory] = useState('videos');
 
   useEffect(() => {
     fetchChannelInfo(channelId);
+    fetchChannelData(channelId)
   }, []);
 
   return (
@@ -21,11 +22,11 @@ function Channel() {
       {showDescription && channelInfo?.description && (
         <div className='absolute overflow-hidden bg-neutral-800 rounded-xl left-1/2 top-1/2 transform -translate-x-1/2'>
           <div className=' flex flex-col gap-2 items-end  w-[600px] max-h-[500px] overflow-y-auto p-8 overflow-y-auto'>
-            <div className="">
-            <AiOutlineClose
-              onClick={() => setShowDescription(false)}
-              className=' text-2xl text-neutral-200'
-            />
+            <div className=''>
+              <AiOutlineClose
+                onClick={() => setShowDescription(false)}
+                className=' text-2xl text-neutral-200'
+              />
             </div>
             <p className='text-lg whitespace-pre-line'>
               {channelInfo?.description}
@@ -76,14 +77,26 @@ function Channel() {
           </div>
         </div>
 
-<div className="my-3 ">
-  <button onClick={() => setCategory("videos")} className={`w-44 text-xl py-2 font-semibold ${category == "videos" ? "border-b" : ""}`}>VIDEOS</button>
-  <button onClick={() => setCategory("playlists")} className={`w-44 text-xl py-2 font-semibold ${category == "playlists" ? "border-b" : ""}`}>PLAYLISTS</button>
-  <hr className='h-1'/>
-</div>
-{category == 'videos' && 
-  <ChannelVideoList/>
-}
+        <div className='my-3 '>
+          <button
+            onClick={() => setCategory('videos')}
+            className={`w-44 text-xl py-2 font-semibold ${
+              category == 'videos' ? 'border-b' : ''
+            }`}
+          >
+            VIDEOS
+          </button>
+          <button
+            onClick={() => setCategory('playlists')}
+            className={`w-44 text-xl py-2 font-semibold ${
+              category == 'playlists' ? 'border-b' : ''
+            }`}
+          >
+            PLAYLISTS
+          </button>
+          <hr className='h-1' />
+        </div>
+        {category == 'videos' && <ChannelVideoList />}
       </div>
     </div>
   );

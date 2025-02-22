@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useChannel } from '../Hooks/useChannel';
 import { AiOutlineClose } from 'react-icons/ai';
+import ChannelVideoList from '../Components/ChannelVideoList';
 
 function Channel() {
   const { channelId } = useParams();
@@ -79,9 +80,10 @@ function Channel() {
   <button onClick={() => setCategory("videos")} className={`w-44 text-xl py-2 font-semibold ${category == "videos" ? "border-b" : ""}`}>VIDEOS</button>
   <button onClick={() => setCategory("playlists")} className={`w-44 text-xl py-2 font-semibold ${category == "playlists" ? "border-b" : ""}`}>PLAYLISTS</button>
   <hr className='h-1'/>
-  {category}
 </div>
-
+{category == 'videos' && 
+  <ChannelVideoList/>
+}
       </div>
     </div>
   );

@@ -39,9 +39,10 @@ export const useChannel = () => {
     channelVideosResponse.items.forEach((item) => {
       if (item.contentDetails.upload) {
         videoIds.push(item.contentDetails.upload.videoId);
-      } else if (item.contentDetails.playlistItem) {
-        videoIds.push(item.contentDetails.playlistItem.resourceId.videoId);
-      }
+      } 
+      // else if (item.contentDetails.playlistItem) {
+      //   videoIds.push(item.contentDetails.playlistItem.resourceId.videoId);
+      // }
     });
 
     const vidResponse = await getActivitiesVideos(videoIds);

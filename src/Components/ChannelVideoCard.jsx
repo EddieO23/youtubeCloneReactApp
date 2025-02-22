@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ChannelVIdeoCard({item}) {
+function ChannelVideoCard({item}) {
   return (
     <div className='col flex flex-col'>
       {/* thumbnail */}
@@ -23,4 +23,4 @@ function ChannelVIdeoCard({item}) {
   )
 }
 
-export default ChannelVIdeoCard
+export default ChannelVideoCard

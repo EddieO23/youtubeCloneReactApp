@@ -9,6 +9,8 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '../Components/Loading';
 import ChannelPlaylist from '../Components/ChannelPlaylist';
 
+
+
 function Channel() {
   const { channelId } = useParams();
   const { channelInfo, fetchChannelInfo, channelVideoList, fetchChannelData } =
@@ -20,9 +22,12 @@ function Channel() {
     fetchChannelData(channelId, channelVideoList.nextPagetoken);
   };
 
+
+
   useEffect(() => {
     fetchChannelInfo(channelId);
     fetchChannelData(channelId);
+    fetchChannelPlaylist()
   }, []);
 
   return (

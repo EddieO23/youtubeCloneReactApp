@@ -13,6 +13,10 @@ function Channel() {
   const [showDescription, setShowDescription] = useState(false);
   const [category, setCategory] = useState('videos');
 
+  const fetchMoreChannelData = () => {
+    fetchChannelData(channelId, channelVideoList.nextPagetoken);
+  };
+
   useEffect(() => {
     fetchChannelInfo(channelId);
     fetchChannelData(channelId);
@@ -97,7 +101,15 @@ function Channel() {
           </button>
           <hr className='h-1' />
         </div>
-        {category == 'videos' && <ChannelVideoList channelVideoList={channelVideoList} />}
+        {category == 'videos' && (
+          <ChannelVideoList channelVideos={channelVideoList.videos} />
+        )}
+        <button
+          onClick={() => fetchMoreChannelData()}
+          className='my-3 text-xl border p-2'
+        >
+          Load more...
+        </button>
       </div>
     </div>
   );

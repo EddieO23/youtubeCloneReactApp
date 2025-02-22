@@ -33,7 +33,7 @@ function Watch() {
       const response = await getActivities(channelId);
       const videoIds = [];
 
-      response.forEach((item) => {
+      response.items.forEach((item) => {
         if (item.contentDetails.upload) {
           videoIds.push(item.contentDetails.upload.videoId);
         } else if (item.contentDetails.playlistItem) {

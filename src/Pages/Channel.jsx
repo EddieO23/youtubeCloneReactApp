@@ -8,13 +8,14 @@ import ChannelVideoList from '../Components/ChannelVideoList';
 
 function Channel() {
   const { channelId } = useParams();
-  const { channelInfo, fetchChannelInfo, fetchChannelData } = useChannel();
+  const { channelInfo, fetchChannelInfo, channelVideoList, fetchChannelData } =
+    useChannel();
   const [showDescription, setShowDescription] = useState(false);
   const [category, setCategory] = useState('videos');
 
   useEffect(() => {
     fetchChannelInfo(channelId);
-    fetchChannelData(channelId)
+    fetchChannelData(channelId);
   }, []);
 
   return (
@@ -96,7 +97,7 @@ function Channel() {
           </button>
           <hr className='h-1' />
         </div>
-        {category == 'videos' && <ChannelVideoList />}
+        {category == 'videos' && <ChannelVideoList channelVideoList={channelVideoList} />}
       </div>
     </div>
   );

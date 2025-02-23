@@ -21,15 +21,23 @@ function Channel() {
     fetchChannelData(channelId, channelVideoList.nextPagetoken);
   };
 
-const fetchChannelPlaylists = async () => {
-  const playlistResponse = await getChannelPlaylists(channelId)
-  console.log("playlistResponse", playlistResponse)
-}
+  const fetchChannelPlaylists = async () => {
+    const playlistResponse = await getChannelPlaylists(channelId);
+
+    const channelPlaylistData = playlistResponse.items.map((item) => ({
+      id: item.id,
+      title: item.snippet.title,
+      thumbnail: item.snippet.thumbnails.high.url || item.snippet.thumbnails.standard.url,
+      videoCount: item.contentDetails.itemCount
+    }));
+
+    console.log('channelPlaylistData', channelPlaylistData);
+  };
 
   useEffect(() => {
     fetchChannelInfo(channelId);
     fetchChannelData(channelId);
-    fetchChannelPlaylists()
+    fetchChannelPlaylists();
   }, []);
 
   return (

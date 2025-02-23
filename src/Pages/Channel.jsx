@@ -7,6 +7,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import ChannelVideoList from '../Components/ChannelVideoList';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '../Components/Loading';
+import ChannelPlaylist from '../Components/ChannelPlaylist';
 
 function Channel() {
   const { channelId } = useParams();
@@ -110,9 +111,10 @@ function Channel() {
             </button>
             <hr className='h-1' />
           </div>
-          {category == 'videos' && (
-            <ChannelVideoList channelVideos={channelVideoList.videos} />
-          )}
+          {category == 'videos' 
+          ?   <ChannelVideoList channelVideos={channelVideoList.videos} />
+          : <ChannelPlaylist />
+          }
         </div>
       </InfiniteScroll>
     </div>

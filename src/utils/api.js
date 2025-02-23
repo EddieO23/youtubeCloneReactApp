@@ -65,5 +65,5 @@ export const getChannelPlaylists = async (channelId, pageToken) => {
     pageToken ? `&pageToken=${pageToken}` : ``
   }&maxResults=8`;
   const response = await axios.get(url);
-  return response;
+  return response.data;
 };

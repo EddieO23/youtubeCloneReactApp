@@ -7,6 +7,7 @@ import {
   getChannelPlaylists,
 } from '../utils/api';
 import { fetchVideosWithChannels } from '../utils/videoDetailsHelper';
+import { parseChannelPlaylists } from '../utils/parseData';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -40,7 +41,7 @@ export const useChannel = () => {
 
   const fetchChannelData = async (channelId, pageToken) => {
     if (category == 'videos') {
-      const channelVideosResponse = await getActivities(channelId, pageToken);
+      const channelVideosResponse = await getActivities(channelId, channelVideoList.nextPagetoken);
       console.log('channelVideosResponse', channelVideosResponse);
 
       const videoIds = [];
@@ -63,21 +64,14 @@ export const useChannel = () => {
 
       // console.log(videosArray)
     } else {
-      const channelPlaylistResponse = await getChannelPlaylists(channelId);
+      const channelPlaylistResponse = await getChannelPlaylists(channelId, channelPlaylists?.nextPagetoken);
 
-      const channelPlaylistData = channelPlaylistResponse.items.map((item) => ({
-        id: item.id,
-        title: item.snippet.title,
-        thumbnail:
-          item.snippet.thumbnails.high.url ||
-          item.snippet.thumbnails.standard.url,
-        videoCount: item.contentDetails.itemCount,
-      }));
+      const channelPlaylistData = parseChannelPlaylists(channelPlaylistResponse.items)
 
       console.log('channelPlaylistData', channelPlaylistData);
       setChannelPlaylists((prev) => ({
         playlists: [...prev.playlists, ...channelPlaylistData],
-        nextPagetoken: channelPlaylistData.nextPagetoken,
+        nextPagetoken: channelPlaylistResponse.nextPagetoken,
       }));
     }
   };

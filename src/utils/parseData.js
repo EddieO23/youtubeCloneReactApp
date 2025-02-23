@@ -7,3 +7,5 @@ export const parseChannelPlaylists = (items) => {
     videoCount: item.contentDetails.itemCount,
   }));
 };
+
+// This function is returning one array with these properties

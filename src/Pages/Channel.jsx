@@ -12,36 +12,22 @@ import { getChannelPlaylists } from '../utils/api';
 
 function Channel() {
   const { channelId } = useParams();
-  const { channelInfo, fetchChannelInfo, channelVideoList, fetchChannelData } =
+  const {category ,setCategory, channelInfo, fetchChannelInfo, channelVideoList, channelPlaylists, fetchChannelData, hasMore } =
     useChannel();
   const [showDescription, setShowDescription] = useState(false);
-  const [category, setCategory] = useState('videos');
 
   const fetchMoreChannelData = () => {
     fetchChannelData(channelId, channelVideoList.nextPageToken);
   };
 
-  const fetchChannelPlaylists = async () => {
-    const playlistResponse = await getChannelPlaylists(channelId);
-    console.log("playlistResponse", playlistResponse)
-
-    const channelPlaylistData = playlistResponse.items.map((item) => ({
-        id: item.id,
-        title: item.snippet.title,
-        thumbnail: item.snippet.thumbnails.high.url || item.snippet.thumbnails.standard.url,
-        videoCount: item.contentDetails.itemCount
-    }))
-console.log("channelPlaylistData", channelPlaylistData)
-  };
-
   useEffect(() => {
     fetchChannelInfo(channelId);
     fetchChannelData(channelId);
-    fetchChannelPlaylists();
-  }, []);
+    // fetchChannelPlaylists();
+  }, [category ]);
 
   return (
-    <div className='relative'>
+    <div className='relative mb-12'>
       {/* CHANNEL MODAL */}
       {showDescription && channelInfo?.description && (
         <div className='absolute overflow-hidden bg-neutral-800 rounded-xl left-1/2 top-1/2 transform -translate-x-1/2'>
@@ -61,8 +47,8 @@ console.log("channelPlaylistData", channelPlaylistData)
 
       <InfiniteScroll
         next={() => fetchMoreChannelData()}
-        hasMore={channelVideoList?.videos.length > 0} // Ensure this is defined
-        dataLength={channelVideoList?.videos.length || 0} // Default to 0 if undefined
+        hasMore={hasMore} 
+        dataLength={channelVideoList?.videos.length} 
         loader={<Loading />}
       >
         <div className='w-[95%] mx-auto mt-8'>
@@ -129,7 +115,7 @@ console.log("channelPlaylistData", channelPlaylistData)
           {category == 'videos' ? (
             <ChannelVideoList channelVideos={channelVideoList.videos} />
           ) : (
-            <ChannelPlaylist />
+            <ChannelPlaylist channelPlaylists={channelPlaylists.playlists} />
           )}
         </div>
       </InfiniteScroll>

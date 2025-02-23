@@ -4,17 +4,25 @@ import {
   getActivities,
   getChannelInfo,
   getActivitiesVideos,
+  getChannelPlaylists,
 } from '../utils/api';
 import { fetchVideosWithChannels } from '../utils/videoDetailsHelper';
+import { parseChannelPlaylist } from '../utils/parseData';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 export const useChannel = () => {
+  const [category, setCategory] = useState('videos');
   const [channelInfo, setChannelInfo] = useState(null);
   const [channelVideoList, setChannelVideoList] = useState({
     videos: [],
     nextPageToken: null,
   });
+  const [channelPlaylists, setChannelPlaylists] = useState({
+    playlists: [],
+    nextPageToken: null,
+  });
+  const [hasMore, setHasMore] = useState(true);
 
   const fetchChannelInfo = async (channelId) => {
     const channelInfoResponse = await getChannelInfo(channelId);
@@ -33,28 +41,60 @@ export const useChannel = () => {
   };
 
   const fetchChannelData = async (channelId, pageToken) => {
-    const channelVideosResponse = await getActivities(channelId, pageToken);
-    console.log('channelVideosResponse', channelVideosResponse);
+    if (category == 'videos') {
+      const channelVideosResponse = await getActivities(
+        channelId,
+        channelVideoList.nextPageToken
+      );
+      console.log('channelVideosResponse', channelVideosResponse);
 
-    const videoIds = [];
+      const videoIds = [];
 
-    channelVideosResponse.items.forEach((item) => {
-      if (item.contentDetails.upload) {
-        videoIds.push(item.contentDetails.upload.videoId);
-      } 
-      // else if (item.contentDetails.playlistItem) {
-      //   videoIds.push(item.contentDetails.playlistItem.resourceId.videoId);
-      // }
-    });
+      channelVideosResponse.items.forEach((item) => {
+        if (item.contentDetails.upload) {
+          videoIds.push(item.contentDetails.upload.videoId);
+        }
+        // else if (item.contentDetails.playlistItem) {
+        //   videoIds.push(item.contentDetails.playlistItem.resourceId.videoId);
+        // }
+      });
 
-    const vidResponse = await getActivitiesVideos(videoIds);
-    const videosArray = await fetchVideosWithChannels(vidResponse.items);
-    setChannelVideoList((prev) => ({
-      videos: [...prev.videos, ...videosArray],
-      nextPageToken: channelVideosResponse.nextPageToken,
-    }));
-    // console.log(videosArray)
+      const vidResponse = await getActivitiesVideos(videoIds);
+      const videosArray = await fetchVideosWithChannels(vidResponse.items);
+      setChannelVideoList((prev) => ({
+        videos: [...prev.videos, ...videosArray],
+        nextPageToken: channelVideosResponse.nextPageToken,
+      }));
+      console.log(channelVideosResponse)
+      setHasMore(videoIds.length <= Number(channelInfo.videoCount))
+    } else {
+      const channelPlaylistResponse = await getChannelPlaylists(
+        channelId,
+        channelPlaylists.nextPageToken
+      );
+      // console.log('playlistResponse', channelPlaylistResponse);
+
+      const channelPlaylistData = parseChannelPlaylist(
+        channelPlaylistResponse.items
+      );
+
+      console.log('channelPlaylistData', channelPlaylistData);
+      setChannelPlaylists((prev) => ({
+        playlists: [...prev.playlists, ...channelPlaylistData],
+        nextPageToken: channelPlaylistResponse.nextPageToken,
+      }));
+      setHasMore(Boolean(channelPlaylistResponse.nextPageToken))
+    }
   };
 
-  return { channelInfo, fetchChannelInfo, fetchChannelData, channelVideoList };
+  return {
+    category,
+    setCategory,
+    channelInfo,
+    fetchChannelInfo,
+    fetchChannelData,
+    channelVideoList,
+    channelPlaylists,
+    hasMore
+  };
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CommentBody from './CommentBody';
 import axios from 'axios';
 import { getCommentReplies } from '../utils/api';
+import { parseReplies } from '../utils/parseData';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -15,14 +16,7 @@ function CommentCard({ comment }) {
         const repliesResponse = await getCommentReplies(comment.commentId)
         // console.log(repliesResponse.data);
 
-        const repliesData = repliesResponse.map((item) => ({
-          commentId: item.id,
-          authorChannelId: item.snippet.authorChannelId.value,
-          authorProfile: item.snippet.authorChannelId.authorProfileImageUrl,
-          authorName: item.snippet.authorDisplayName,
-          commentText: item.snippet.textOriginal,
-          commentLikes: item.snippet.likeCount,
-        }));
+        const repliesData = parseReplies(repliesResponse)
       setReplies(repliesData);
       }
 

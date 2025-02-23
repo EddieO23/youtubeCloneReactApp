@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CommentCard from './CommentCard';
 import { getVideoComments } from '../utils/api';
+import { parseComments } from '../utils/parseData';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -19,17 +20,7 @@ function Comments({ videoId }) {
 
       const items = commentsResponse.items;
 
-      const commentsData = items.map((comment) => ({
-        commentId: comment.id,
-        authorChannelId:
-          comment.snippet.topLevelComment.snippet.authorChannelId.value,
-        authorProfile:
-          comment.snippet.topLevelComment.snippet.authorProfileImageUrl,
-        authorName: comment.snippet.topLevelComment.snippet.authorDisplayName,
-        commentText: comment.snippet.topLevelComment.snippet.textOriginal,
-        commentLikes: comment.snippet.topLevelComment.snippet.likeCount,
-        commentRepliesCount: comment.snippet.totalReplyCount,
-      }));
+      const commentsData = parseComments(items)
       // console.log(commentsData);
       setCommentList((prev) => ({
         comments: [...prev.comments, ...commentsData],

@@ -5,13 +5,16 @@ import {
   getChannelInfo,
   getActivitiesVideos,
 } from '../utils/api';
-import {fetchVideosWithChannels} from "../utils/videoDetailsHelper"
+import { fetchVideosWithChannels } from '../utils/videoDetailsHelper';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 export const useChannel = () => {
   const [channelInfo, setChannelInfo] = useState(null);
-  const [channelVideoList, setChannelVideoList] = useState();
+  const [channelVideoList, setChannelVideoList] = useState({
+    videos: [],
+    nextPageToken: null,
+  });
 
   const fetchChannelInfo = async (channelId) => {
     const channelInfoResponse = await getChannelInfo(channelId);
@@ -29,23 +32,27 @@ export const useChannel = () => {
     setChannelInfo(channelInfoData);
   };
 
-  const fetchChannelData = async (channelId) => {
-    const channelVideosResponse = await getActivities(channelId);
-    // console.log('channelVideosResponse', channelVideosResponse);
+  const fetchChannelData = async (channelId, pageToken) => {
+    const channelVideosResponse = await getActivities(channelId, pageToken);
+    console.log('channelVideosResponse', channelVideosResponse);
 
     const videoIds = [];
 
-    channelVideosResponse.forEach((item) => {
+    channelVideosResponse.items.forEach((item) => {
       if (item.contentDetails.upload) {
         videoIds.push(item.contentDetails.upload.videoId);
-      } else if (item.contentDetails.playlistItem) {
-        videoIds.push(item.contentDetails.playlistItem.resourceId.videoId);
-      }
+      } 
+      // else if (item.contentDetails.playlistItem) {
+      //   videoIds.push(item.contentDetails.playlistItem.resourceId.videoId);
+      // }
     });
 
     const vidResponse = await getActivitiesVideos(videoIds);
     const videosArray = await fetchVideosWithChannels(vidResponse.items);
-    setChannelVideoList(videosArray);
+    setChannelVideoList((prev) => ({
+      videos: [...prev.videos, ...videosArray],
+      nextPageToken: channelVideosResponse.nextPageToken,
+    }));
     // console.log(videosArray)
   };
 

@@ -1,12 +1,12 @@
 import React from 'react';
-import ChannelVIdeoCard from './ChannelVIdeoCard';
+import ChannelVideoCard from './ChannelVideoCard';
 
-function ChannelVideoList({channelVideoList}) {
+function ChannelVideoList({channelVideos}) {
   return (
     <div className='row row-cols-4 gap-y-4'>
-      {channelVideoList &&
-      channelVideoList.map((item, index) => (
-        <ChannelVIdeoCard item={item} key={index} />
+      {channelVideos &&
+      channelVideos.map((item, index) => (
+        <ChannelVideoCard item={item} key={item.videoId} />
       ))}
     </div>
   );

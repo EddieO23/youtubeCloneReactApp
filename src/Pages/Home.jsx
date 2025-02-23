@@ -21,7 +21,8 @@ function Home({ filter, categoryId }) {
       {/* <Loading/> */}
       {error ? (
         <div className='text-center mt-8 text-xl text-red-500 font-semibold'>{error}</div>
-      ) : <InfiniteScroll
+      ) : 
+      <InfiniteScroll
       next={() =>
         fetchHomeVideos(filter, categoryId, homeVideos[filter]?.nextPageToken)
       }

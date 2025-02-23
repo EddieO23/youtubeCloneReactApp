@@ -8,8 +8,7 @@ import ChannelVideoList from '../Components/ChannelVideoList';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '../Components/Loading';
 import ChannelPlaylist from '../Components/ChannelPlaylist';
-
-
+import { getChannelPlaylists } from '../utils/api';
 
 function Channel() {
   const { channelId } = useParams();
@@ -22,12 +21,15 @@ function Channel() {
     fetchChannelData(channelId, channelVideoList.nextPagetoken);
   };
 
-
+const fetchChannelPlaylists = async () => {
+  const playlistResponse = await getChannelPlaylists(channelId)
+  console.log("playlistResponse", playlistResponse)
+}
 
   useEffect(() => {
     fetchChannelInfo(channelId);
     fetchChannelData(channelId);
-    fetchChannelPlaylist()
+    fetchChannelPlaylists()
   }, []);
 
   return (
@@ -116,10 +118,11 @@ function Channel() {
             </button>
             <hr className='h-1' />
           </div>
-          {category == 'videos' ?
+          {category == 'videos' ? (
             <ChannelVideoList channelVideos={channelVideoList.videos} />
-            : <ChannelPlaylist/>
-          }
+          ) : (
+            <ChannelPlaylist />
+          )}
         </div>
       </InfiniteScroll>
     </div>

@@ -8,7 +8,7 @@ import ChannelVideoList from '../Components/ChannelVideoList';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '../Components/Loading';
 import ChannelPlaylist from '../Components/ChannelPlaylist';
-import { getChannelPlaylists } from '../utils/api'; 
+// import { getChannelPlaylists } from '../utils/api'; 
 
 function Channel() {
   const { channelId } = useParams();

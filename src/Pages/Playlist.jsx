@@ -2,36 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPlaylistsInfo } from '../utils/api';
 import { AiOutlineClose } from 'react-icons/ai';
+import { usePlaylistInfo } from '../Hooks/usePlaylistInfo';
 
 function Playlist() {
   const { channelId, playlistId } = useParams();
-  const [playlistInfo, setPlaylistInfo] = useState(null);
-  const [showDescription, setShowDescription] = useState(false);
-
-  const fetchPlaylistInfo = async () => {
-    const playlistInfoResponse = await getPlaylistsInfo(playlistId);
-    console.log('playlistInfoResponse', playlistInfoResponse);
-
-    const playlistInfoData = {
-      id: playlistInfoResponse.id,
-      title: playlistInfoResponse.snippet.title,
-      description: playlistInfoResponse.snippet.description,
-      thumbnail:
-        playlistInfoResponse.snippet.thumbnails.standard.url ||
-        playlistInfoResponse.snippet.thumbnails.high.url,
-    };
-    setPlaylistInfo(playlistInfoData);
-    console.log('playlistInfoData', playlistInfoData);
-  };
+  const { playlistInfo, showDescription, fetchPlaylistInfo, setShowDescription } = usePlaylistInfo();
 
   useEffect(() => {
-    fetchPlaylistInfo();
+    fetchPlaylistInfo(playlistId);
   }, []);
 
   return (
     <div className='relative'>
-       {/* PLAYLIST MODAL */}
-       {showDescription && playlistInfo?.description && (
+      {/* PLAYLIST MODAL */}
+      {showDescription && playlistInfo?.description && (
         <div className='absolute overflow-hidden bg-neutral-800 rounded-xl left-1/2 top-1/2 transform -translate-x-1/2'>
           <div className=' flex flex-col gap-2 items-end  w-[600px] max-h-[500px] overflow-y-auto p-8 overflow-y-auto'>
             <div className=''>
@@ -84,7 +68,7 @@ function Playlist() {
           </div>
         </div>
       </div>
-    </div> 
+    </div>
   );
 }
 

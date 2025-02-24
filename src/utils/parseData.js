@@ -54,3 +54,11 @@ export const parseReplies = (items) => {
     commentLikes: item.snippet.likeCount,
   }));
 };
+
+export const parsePlaylistInfo = (item) => ({
+  id: item.id,
+  title: item.snippet.title,
+  description: item.snippet.description,
+  thumbnail:
+    item.snippet.thumbnails.standard.url || item.snippet.thumbnails.high.url,
+})

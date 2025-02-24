@@ -3,10 +3,16 @@ import { useParams } from 'react-router-dom';
 import { getPlaylistsInfo } from '../utils/api';
 import { AiOutlineClose } from 'react-icons/ai';
 import { usePlaylistInfo } from '../Hooks/usePlaylistInfo';
+import { AiOutlineUnorderedList } from 'react-icons/ai';
 
 function Playlist() {
   const { channelId, playlistId } = useParams();
-  const { playlistInfo, showDescription, fetchPlaylistInfo, setShowDescription } = usePlaylistInfo();
+  const {
+    playlistInfo,
+    showDescription,
+    fetchPlaylistInfo,
+    setShowDescription,
+  } = usePlaylistInfo();
 
   useEffect(() => {
     fetchPlaylistInfo(playlistId);
@@ -30,6 +36,7 @@ function Playlist() {
           </div>
         </div>
       )}
+
       <div className='w-[90%] mx-auto mt-8'>
         <div className='row row-cols-2 bg-neutral-900 p-5 rounded-xl'>
           {/* image */}
@@ -66,6 +73,31 @@ function Playlist() {
               </div>
             )}
           </div>
+        </div>
+
+        <div className='row row-cols-4 gap-y-2 mt-4'>
+          {[...Array(12)].map((item, index) => {
+            return (
+              <div className='col flex flex-col' key={index}>
+                <div className='relative'>
+                  <div className='absolute flex gap-2 items-center top-0 left-0 bg-[#0c0c0cd0] px-2 py-0.5 h-full w-[100px] '>
+                    <h4 className='text-center w-full'>1</h4>
+                  </div>
+                  {/* thumbnail */}
+                  <div className='bg-red-300 object-cover aspect-[16/9] rounded'></div>
+                  {/* <img
+          src={item.thumbnail}
+          className='bg-red-300 aspect-[16/9] rounded object-cover'
+          alt=''
+        /> */}
+                </div>
+                {/* title */}
+                <div className='flex flex-col gap-1 mt-1'>
+                  <h2 className='text-md line-clamp-1'>Title</h2>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

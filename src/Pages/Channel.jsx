@@ -115,7 +115,7 @@ function Channel() {
           {category == 'videos' ? (
             <ChannelVideoList channelVideos={channelVideoList.videos} />
           ) : (
-            <ChannelPlaylist channelPlaylists={channelPlaylists.playlists} />
+            <ChannelPlaylist channelId={channelInfo?.id} channelPlaylists={channelPlaylists.playlists} />
           )}
         </div>
       </InfiniteScroll>

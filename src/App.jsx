@@ -5,6 +5,7 @@ import Sidebar from './Components/Sidebar';
 import Home from './Pages/Home';
 import Watch from './Pages/Watch';
 import Channel from './Pages/Channel';
+import Playlist from './Pages/Playlist';
 
 function App() {
   const [filter, setFilter] = useState('home');
@@ -29,6 +30,7 @@ function App() {
         <Route path='/'element={<Home filter={filter} categoryId={categoryId} />}/>
         <Route path='/watch/:videoId/:channelId'element={<Watch/>}/>
         <Route path='/channel/:channelId' element={<Channel/>}/>
+        <Route path='/playlist/:channelId/:playlistId' element={<Playlist/>}/>
       </Routes>
     </BrowserRouter>
   );

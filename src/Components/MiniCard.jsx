@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function MiniCard({item}) {
   return (
-    <div className='flex gap-3'>
+    <Link to={`/watch/${item.videoId}/${item.channelInfo.id}`} >
+    <div className='flex gap-3 hover:scale-[101%] duration-200 ease-in-out'>
       <div className='relative min-w-fit'>
         <span className='absolute bottom-1 right-1 bg-[#0c0c0cd0] px-2 py-2 rounded'>{item.videoDuration}</span>
         {/* <div className='bg-red-200 w-64 aspect-[16/9] rounded'></div> */}
@@ -20,6 +22,7 @@ function MiniCard({item}) {
         </div>
       </div>
     </div>
+    </Link>
   );
 }
 

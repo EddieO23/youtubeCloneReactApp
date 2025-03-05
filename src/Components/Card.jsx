@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Card({ data }) {
   return (
-    <div className='flex flex-col gap-3 pb-3'>
+    <div className='flex flex-col gap-3 pb-3 hover:scale-[101%] duration-200 ease-in-out'>
       {/* THUMBNAIL */}
       <div className='relative'>
         <Link to={`/watch/${data.videoId}/${data.channelInfo.id}`}>
@@ -20,9 +20,9 @@ function Card({ data }) {
 
       {/* DETAILS */}
       <div className='flex gap-2'>
-        <Link to={`/channel/${data.channelInfo.id}`}>
+        <Link className='h-10 aspect-[1/1] ' to={`/channel/${data.channelInfo.id}`}>
           <img
-            className='bg-red-300 aspect-[1/1] h-12 rounded-full'
+            className='bg-red-300 h-12 rounded-full hover:scale-[110%] duration-200 ease-in-out object-cover'
             src={data.channelInfo.image}
             alt=''
           />

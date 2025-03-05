@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { FaYoutube } from 'react-icons/fa';
 import { FaSearch } from 'react-icons/fa';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-
+import { Navigate } from 'react-router-dom';
 
 
 function Navbar() {
 const navigate = useNavigate()
+const [search, setSearch] = useState("")
+
+
+const handleKeyPress = (e) => {
+if(e.key == "Enter") {
+  e.preventDefault()
+  if(search.trim()) {
+    navigate(`/search?query=${search}`)
+  } else {
+    navigate(`/`)
+  }
+}
+}
  
   return (
     <div className='w-full bg-[#0c0c0c]'>
@@ -36,6 +49,8 @@ const navigate = useNavigate()
                   type='text'
                   placeholder='Search'
                   className='w-96 px-3 text-lg text-zinc-300 bg-[#0c0c0c] focus:outline-none placeholder-neutral-500'
+                  onChange={(e)=>setSearch(e.target.value)}
+                  onKeyDown={handleKeyPress}
                 />
                 <AiOutlineClose className='text-lg cursor-pointer text-neutral-400' />
               </div>
@@ -46,7 +61,8 @@ const navigate = useNavigate()
           </form>
         </div>
 
-        <div className=''>{/* EMPTY */}</div>
+        <div className=''>{/* EMPTY */}
+        </div>
       </div>
     </div>
   );

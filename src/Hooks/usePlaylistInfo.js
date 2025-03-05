@@ -8,13 +8,13 @@ export const usePlaylistInfo = () => {
 
   const fetchPlaylistInfo = async (playlistId) => {
       const playlistInfoResponse = await getPlaylistsInfo(playlistId);
-      console.log('playlistInfoResponse', playlistInfoResponse);
+      // console.log('playlistInfoResponse', playlistInfoResponse);
   
       const playlistInfoData = parsePlaylistInfo(playlistInfoResponse)
 
       setPlaylistInfo(playlistInfoData);
       
-      console.log('playlistInfoData', playlistInfoData);
+      // console.log('playlistInfoData', playlistInfoData);
     };
     
     return {playlistInfo, showDescription, setShowDescription, fetchPlaylistInfo}

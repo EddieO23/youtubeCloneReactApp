@@ -71,5 +71,11 @@ export const getChannelPlaylists = async (channelId, pageToken) => {
 export const getPlaylistsInfo = async (playlistId) => {
   const url = `${BASE_URL}/v3/playlists?key=${API_KEY}&part=snippet,contentDetails&id=${playlistId}&maxResults=20`;
   const response = await axios.get(url);
-  return response.data.items[0]
+  return response.data.items[0];
+};
+
+export const getPlaylistVideos = async (playlistId, pageToken) => {
+  const url = `${BASE_URL}/v3/playlistItems?key=${API_KEY}&part=snippet,contentDetails&playlistId=${playlistId}${pageToken ? `pageToken=${pageToken}` : ``}&maxResults=20`;
+  const response = await axios.get(url);
+  return response.data;
 };

@@ -4,6 +4,8 @@ import { getPlaylistsInfo, getPlaylistVideos } from '../utils/api';
 import { AiOutlineClose } from 'react-icons/ai';
 import { usePlaylistInfo } from '../Hooks/usePlaylistInfo';
 import { AiOutlineUnorderedList } from 'react-icons/ai';
+import { usePlaylistItems } from '../Hooks/usePlaylistItems';
+import PlaylistItems from '../Components/PlaylistItems';
 
 function Playlist() {
   const { channelId, playlistId } = useParams();
@@ -13,27 +15,14 @@ function Playlist() {
     fetchPlaylistInfo,
     setShowDescription,
   } = usePlaylistInfo();
-const [playlistItems, setPlaylistItems] = useState({videos: [], nextPageToken: null})
 
+const {fetchPlaylistVideos,playlistItems } = usePlaylistItems()
 
-  const fetchPlaylistVideos = async () => {
-    const playlistVideosResponse = await getPlaylistVideos(playlistId)
-    
-    
-    const playlistVideosData = playlistVideosResponse.items.map((item) =>({
-      id: item.id,
-      title: item.snippet.title,
-      thumbnail: item.snippet.thumbnails.high?.url || item.snippet.thumbnails.standard.url
-    }))
-    setPlaylistItems(prev =>({
-      videos: [...prev.videos, ...playlistVideosData],
-      nextPageToken: playlistVideosResponse.nextPageToken
-    }) )
-  }
+ 
 
   useEffect(() => {
     fetchPlaylistInfo(playlistId);
-    fetchPlaylistVideos()
+    fetchPlaylistVideos(playlistId)
   }, []);
 
   return (
@@ -93,30 +82,7 @@ const [playlistItems, setPlaylistItems] = useState({videos: [], nextPageToken: n
           </div>
         </div>
 
-        <div className='row row-cols-4 gap-y-4 mt-4'>
-          {playlistItems.videos.map((item, index) => {
-            return (
-              <div className='col flex flex-col' key={index}>
-                <div className='relative'>
-                  <div className='absolute flex gap-2 items-center top-0 left-0 bg-[#0c0c0cd0] px-2 py-0.5 h-full w-[100px] '>
-                    <h4 className='text-center w-full text-xl text-neutral-400'>{index + 1}</h4>
-                  </div>
-                  {/* thumbnail */}
-                  {/* <div className='bg-red-300 object-cover aspect-[16/9] rounded'></div> */}
-                  <img
-          src={item.thumbnail}
-          className='bg-red-300 aspect-[16/9] rounded object-cover'
-          alt=''
-        />
-                </div>
-                {/* title */}
-                <div className='flex flex-col gap-1 mt-1'>
-                  <h2 className='text-md line-clamp-1'>{item.title}</h2>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <PlaylistItems videos={playlistItems.videos}/>
       </div>
     </div>
   );

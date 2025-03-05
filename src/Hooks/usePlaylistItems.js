@@ -6,10 +6,11 @@ export const usePlaylistItems = () => {
 
  const fetchPlaylistVideos = async (playlistId) => {
     const playlistVideosResponse = await getPlaylistVideos(playlistId)
+    // console.log("PlaylistVideosResponse. Ln 9", playlistVideosResponse);
     
     
     const playlistVideosData = playlistVideosResponse.items.map((item) =>({
-      id: item.id,
+      id: item.snippet.resourceId.videoId,
       title: item.snippet.title,
       thumbnail: item.snippet.thumbnails.high?.url || item.snippet.thumbnails.standard.url
     }))

@@ -1,8 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function ChannelVideoCard({item}) {
   return (
-    <div className='col flex flex-col'>
+    <Link to={`/watch/${item.videoId}/${item.channelInfo.id}`}>
+    <div className='col flex flex-col hover:scale-[101%] duration-200 ease-in-out'>
       {/* thumbnail */}
       <div className='relative'>
         <div className='absolute bottom-2 right-2 bg-[#0c0c0cd0] px-2 py-0.5 rounded '>
@@ -20,6 +22,7 @@ function ChannelVideoCard({item}) {
         </div>
       </div>
     </div>
+    </Link>
   )
 }
 

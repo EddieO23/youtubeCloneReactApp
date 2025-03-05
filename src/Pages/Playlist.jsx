@@ -82,7 +82,7 @@ const {fetchPlaylistVideos,playlistItems } = usePlaylistItems()
           </div>
         </div>
 
-        <PlaylistItems videos={playlistItems.videos}/>
+        <PlaylistItems videos={playlistItems.videos} channelId={channelId}/>
       </div>
     </div>
   );

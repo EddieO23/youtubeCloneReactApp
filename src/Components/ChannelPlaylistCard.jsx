@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function ChannelPlaylistCard({ item , channelId}) {
   return (
     <Link to={`/playlist/${channelId}/${item.id}`}>
-      <div className='col flex flex-col'>
+      <div className='col flex flex-col hover:scale-[101%] duration-200 ease-in-out'>
         <div className='relative'>
           <div className='absolute flex gap-2 items-center bottom-2 right-2 bg-[#0c0c0cd0] px-2 py-0.5 rounded '>
             <AiOutlineUnorderedList />

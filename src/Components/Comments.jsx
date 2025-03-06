@@ -40,7 +40,7 @@ function Comments({ videoId }) {
 
   return (
     <div className='mt-3 flex flex-col gap-2 '>
-      <h1 className='text-2xl font-semibold px-4'>COMMENTS</h1>
+      <h1 className='md:text-2xl sm:text-xl text-lg font-semibold px-4'>COMMENTS</h1>
       {commentList?.comments?.map((comment, indx) => (
         <CommentCard key={indx} comment={comment} />
       ))}

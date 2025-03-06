@@ -60,7 +60,7 @@ function Watch() {
   return (
     <div className='w-[95%] mx-auto mt-6 mb-12'>
       <div className='row'>
-        <div className='col-8'>
+        <div className='col-xl-8 col-lg-7'>
           {details ? (
             <>
               <iframe
@@ -70,20 +70,25 @@ function Watch() {
                 allow='autoplay; fullscreen'
               ></iframe>
               <VideoDetails details={details} />
+              <div className="lg:block hidden">
               <Comments videoId={details.videoId} />
+              </div>
             </>
           ) : (
             <p>Loading video details...</p> // Graceful loading state
           )}
         </div>
-        <div className='col-4 flex flex-col gap-3'>
+        <div className='col-xl-4 col-lg-5 flex flex-col gap-3 lg:mt-0 mt-3'>
           {activities.map((item, indx) => (
             <MiniCard item={item} key={item.videoId } />
           ))}
         </div>
+        <div className="block lg:hidden">
+              <Comments videoId={details?.videoId} />
+              </div>
       </div>
     </div>
-  );
+  ); 
 }
 
 export default Watch;

@@ -3,7 +3,7 @@ import ChannelPlaylistCard from './ChannelPlaylistCard';
 
 function ChannelPlaylist({channelId, channelPlaylists}) {
   return (
-    <div className='row row-cols-4 gap-y-4'>
+    <div className='row row-cols-lg-4 row-cols-md-3 row-cols-2 gap-y-4'>
       {channelPlaylists.map(item => (
         <ChannelPlaylistCard key={item.id} item={item} channelId={channelId} />
       ))}

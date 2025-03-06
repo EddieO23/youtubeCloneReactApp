@@ -51,7 +51,7 @@ function Channel() {
         dataLength={channelVideoList?.videos.length} 
         loader={<Loading />}
       >
-        <div className='w-[95%] mx-auto mt-8'>
+        <div className='w-[95%] mx-auto md:mt-8 mt-6'>
           <div className='row row-cols-2'>
             {/* image */}
             <div className='col-4'>
@@ -59,14 +59,14 @@ function Channel() {
 
               <img
                 src={channelInfo?.thumbnail}
-                className='w-52 aspect-[1/1] object-cover rounded-full'
+                className='md:w-52 sm:w-40 w-36 aspect-[1/1] object-cover rounded-full'
                 alt='channelThumbnail img'
               />
             </div>
             {/* details */}
             <div className='col-8'>
-              <h1 className='text-4xl font-semibold'>{channelInfo?.title}</h1>
-              <div className='flex gap-4 text-lg mt-2 text-neutral-400'>
+              <h1 className='md:text-4xl sm:text-3xl text-2xl font-semibold'>{channelInfo?.title}</h1>
+              <div className='sm:flex gap-4 sm:text-lg text-md mt-2 text-neutral-400'>
                 <h3>{channelInfo?.customUrl}</h3>
                 <h3>{channelInfo?.subCount} Subscribers</h3>
                 <h3>{channelInfo?.videoCount} Videos</h3>
@@ -93,10 +93,10 @@ function Channel() {
             </div>
           </div>
 
-          <div className='my-3 '>
+          <div className='sm:my-3 my-1'>
             <button
               onClick={() => setCategory('videos')}
-              className={`w-44 text-xl py-2 font-semibold ${
+              className={`md:w-44 w-32  sm:text-xl text-lg py-2 font-semibold ${
                 category == 'videos' ? 'border-b' : ''
               }`}
             >
@@ -104,7 +104,7 @@ function Channel() {
             </button>
             <button
               onClick={() => setCategory('playlists')}
-              className={`w-44 text-xl py-2 font-semibold ${
+              className={`md:w-44 w-32 sm:text-xl text-lg py-2 font-semibold ${
                 category == 'playlists' ? 'border-b' : ''
               }`}
             >

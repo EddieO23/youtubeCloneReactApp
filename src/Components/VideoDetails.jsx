@@ -14,11 +14,11 @@ function VideoDetails({ details }) {
   return (
     <div className='flex flex-col gap-2 mt-2 mx-1'>
       {/* <h1 className='text-2xl font-semibold'>{details.videoTitle}</h1> */}
-      <h1 className='text-2xl font-semibold'>
+      <h1 className='md:text-2xl sm:text-xl text-lg font-semibold'>
         {details?.videoTitle || 'Loading...'}
       </h1>
 
-      <div className='flex justify-between'>
+      <div className='md:flex justify-between'>
         <div className='flex gap-3 items-center'>
           {/* <img 
             src={details.channelInfo.image} 
@@ -32,7 +32,7 @@ function VideoDetails({ details }) {
             alt=''
           />
           </Link>
-          <div className='flex flex-col text-lg'>
+          <div className='flex flex-col sm:text-lg text-md'>
             {/* <h2 className='font-semibold'>{details.channelInfo.name}</h2> */}
             <h2 className='font-semibold'>
               {details?.channelInfo?.name || 'Loading...'}
@@ -41,21 +41,21 @@ function VideoDetails({ details }) {
             <h2>{details?.channelInfo.subCount} subscribers</h2>
           </div>
         </div>
-        <div className='flex gap-3 text-lg cursor-pointer'>
-          <div className='flex items-center gap-2 bg-neutral-800 px-3 rounded-full'>
+        <div className='flex gap-3 sm:text-lg text-md cursor-pointer sm:mt-0 mt-1'>
+          <div className='flex items-center gap-1 bg-neutral-800 px-2 py-1 rounded-full'>
             <AiFillLike />
             <span className='h-6 border'></span>
             <span>{details.videoLikes}</span>
           </div>
 
-          <div className='flex items-center gap-2 bg-neutral-800 px-3 rounded-full'>
+          <div className='flex items-center gap-1 bg-neutral-800 px-2 py-1 rounded-full'>
             <FaShareAlt />
             <span>SHARE</span>
           </div>
         </div>
       </div>
 
-      <div className='text-lg bg-neutral-700 px-3 py-2 rounded-xl'>
+      <div className='sm:text-lg text-md bg-neutral-700 px-3 py-2 rounded-xl'>
         <p
           className={`whitespace-pre-line ${
             showDescription ? `` : `line-clamp-3`

@@ -6,7 +6,7 @@ function PlaylistItemCard({ item, index, channelId }) {
     <Link to={`/watch/${item.id}/${channelId}`}>
       <div className='col flex flex-col hover:scale-[103%] duration-750 ease-in-out'>
         <div className='relative'>
-          <div className='absolute flex gap-2 items-center top-0 left-0 bg-[#0c0c0cd0] px-2 py-0.5 h-full w-[100px] '>
+          <div className='absolute flex gap-2 items-center top-0 left-0 bg-[#0c0c0cd0] px-2 py-0.5 h-full sm:w-[100px] w-[60px] '>
             <h4 className='text-center w-full text-xl text-neutral-400'>
               {index + 1}
             </h4>
@@ -21,7 +21,7 @@ function PlaylistItemCard({ item, index, channelId }) {
         </div>
         {/* title */}
         <div className='flex flex-col gap-1 mt-1'>
-          <h2 className='text-md line-clamp-1'>{item.title}</h2>
+          <h2 className='sm:text-md text-sm line-clamp-1'>{item.title}</h2>
         </div>
       </div>
     </Link>

@@ -44,10 +44,10 @@ const {fetchPlaylistVideos,playlistItems } = usePlaylistItems()
         </div>
       )}
 
-      <div className='w-[90%] mx-auto mt-8'>
-        <div className='row row-cols-2 bg-neutral-900 p-5 rounded-xl'>
+      <div className='w-[90%] mx-auto md:mt-8 mt-4'>
+        <div className='row row-cols-2 bg-neutral-900 md:p-5 p-3 rounded-xl'>
           {/* image */}
-          <div className='col-4'>
+          <div className='col-md-4 col-12'>
             {/* <div className='aspect-[16/9] mx-auto bg-red-300'></div> */}
 
             <img
@@ -57,14 +57,14 @@ const {fetchPlaylistVideos,playlistItems } = usePlaylistItems()
             />
           </div>
           {/* details */}
-          <div className='col-8 flex flex-col gap-2'>
+          <div className='col-md-8 col-12 flex flex-col gap-2'>
             {/* <h1 className='text-4xl font-semibold'>{channelInfo?.title}</h1> */}
-            <h1 className='text-4xl font-semibold'>{playlistInfo?.title}</h1>
+            <h1 className='md:text-4xl sm:text-3xl text-2xl font-semibold'>{playlistInfo?.title}</h1>
             {/* Description */}
 
             {playlistInfo?.description && (
               <div className=''>
-                <p className='w-[600px] line-clamp-3 text-neutral-400 whitespace-pre-line'>
+                <p className=' line-clamp-3 text-neutral-400 whitespace-pre-line'>
                   {/* Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum
               placeat deleniti repellendus officia dolorum optio, quibusdam vel,
               rerum eligendi porro doloribus pariatur culpa itaque dolores amet

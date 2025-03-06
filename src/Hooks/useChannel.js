@@ -46,7 +46,7 @@ export const useChannel = () => {
         channelId,
         channelVideoList.nextPageToken
       );
-      console.log('channelVideosResponse', channelVideosResponse);
+      // console.log('channelVideosResponse', channelVideosResponse);
 
       const videoIds = [];
 
@@ -65,7 +65,7 @@ export const useChannel = () => {
         videos: [...prev.videos, ...videosArray],
         nextPageToken: channelVideosResponse.nextPageToken,
       }));
-      console.log(channelVideosResponse)
+      // console.log(channelVideosResponse)
       setHasMore(videoIds.length <= Number(channelInfo.videoCount))
     } else {
       const channelPlaylistResponse = await getChannelPlaylists(
@@ -78,7 +78,7 @@ export const useChannel = () => {
         channelPlaylistResponse.items
       );
 
-      console.log('channelPlaylistData', channelPlaylistData);
+      // console.log('channelPlaylistData', channelPlaylistData);
       setChannelPlaylists((prev) => ({
         playlists: [...prev.playlists, ...channelPlaylistData],
         nextPageToken: channelPlaylistResponse.nextPageToken,

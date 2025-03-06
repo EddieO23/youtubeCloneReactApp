@@ -29,7 +29,7 @@ const {fetchPlaylistVideos,playlistItems } = usePlaylistItems()
     <div className='relative'>
       {/* PLAYLIST MODAL */}
       {showDescription && playlistInfo?.description && (
-        <div className='absolute overflow-hidden bg-neutral-800 rounded-xl left-1/2 top-1/2 transform -translate-x-1/2'>
+        <div className='absolute overflow-hidden bg-neutral-800 rounded-xl left-1/2 top-14 z-[10]transform -translate-x-1/2'>
           <div className=' flex flex-col gap-2 items-end  w-[600px] max-h-[500px] overflow-y-auto p-8 overflow-y-auto'>
             <div className=''>
               <AiOutlineClose

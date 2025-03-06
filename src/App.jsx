@@ -10,6 +10,7 @@ import Search from './Pages/Search';
 
 function App() {
   const [filter, setFilter] = useState('home');
+  const [search, setSearch] = useState("")
   const [categoryId, setCategoryId] = useState(null);
 
   return (
@@ -25,12 +26,12 @@ function App() {
           setCategoryId={setCategoryId}
         />
       </div>
-      <Navbar />
+      <Navbar search={search} setSearch={setSearch}/>
 
       <Routes>
         <Route path='/'element={<Home filter={filter} categoryId={categoryId} />}/>
         <Route path='/watch/:videoId/:channelId'element={<Watch/>}/>
-        <Route path='/search' element={<Search/>}/>
+        <Route path='/search' element={<Search setSearch={setSearch}/>}/>
         <Route path='/channel/:channelId' element={<Channel/>}/>
         <Route path='/playlist/:channelId/:playlistId' element={<Playlist/>}/>
       </Routes>

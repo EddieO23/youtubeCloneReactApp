@@ -7,9 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 
 
-function Navbar() {
+function Navbar({search, setSearch}) {
 const navigate = useNavigate()
-const [search, setSearch] = useState("")
 
 
 const handleKeyPress = (e) => {
@@ -26,7 +25,7 @@ if(e.key == "Enter") {
   return (
     <div className='w-full bg-[#0c0c0c]'>
       <div className='flex justify-between w-[95%] h-14 mx-auto'>
-        <div className='flex items-center gap-8'>
+        <div className='flex items-center gap-8 cursor-pointer'>
           <a
             data-bs-toggle='offcanvas'
             href='#offcanvasExample'
@@ -36,7 +35,7 @@ if(e.key == "Enter") {
             <RxHamburgerMenu className='text-xl text-white' />
           </a>
           <div className='flex items-center gap-1' onClick={() => navigate('/')}>
-          <FaYoutube className='text-3xl text-red-600' />
+          <FaYoutube className='text-3xl text-red-600 cursor-pointer' />
           <span className='text-xl'>YouTube</span>
         </div>
         </div>
@@ -46,15 +45,16 @@ if(e.key == "Enter") {
             <div className='flex items-center h-10 border-[0.6px] border-neutral-700 rounded-full overflow-hidden'>
               <div className='flex items-center pr-5'>
                 <input
+                  value={search}
                   type='text'
                   placeholder='Search'
                   className='w-96 px-3 text-lg text-zinc-300 bg-[#0c0c0c] focus:outline-none placeholder-neutral-500'
                   onChange={(e)=>setSearch(e.target.value)}
                   onKeyDown={handleKeyPress}
                 />
-                <AiOutlineClose className='text-lg cursor-pointer text-neutral-400' />
+                <AiOutlineClose onClick={()=> setSearch("")} className={`text-lg cursor-pointer text-neutral-400 ${!search ? `invisible` : `visible`}`}/>
               </div>
-              <button className='w-16 flex items-center justify-center border-l-[1px] border-neutral-700'>
+              <button  className='w-16 flex items-center justify-center border-l-[1px] border-neutral-700'>
                 <FaSearch className='text-2xl text-neutral-200 ' />
               </button>
             </div>
